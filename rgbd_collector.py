@@ -13,6 +13,7 @@ ISO_STEP = 50
 LENS_STEP = 3
 WB_STEP = 200
 
+print("testing")
 def clamp(num, v0, v1):
     return max(v0, min(num, v1))
 
