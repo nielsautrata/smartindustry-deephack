@@ -8,12 +8,6 @@ from pathlib import Path
 import time
 import queue
 
-
-
-
-
-print("testing")
-
 def clamp(num, v0, v1):
     return max(v0, min(num, v1))
 
@@ -51,7 +45,6 @@ camRgb.setResolution(dai.ColorCameraProperties.SensorResolution.THE_800_P)
 #camRgb.setPreviewSize(400, 400)
 camRgb.setBoardSocket(dai.CameraBoardSocket.RGB)
 
-
 # Properties
 monoLeft.setResolution(dai.MonoCameraProperties.SensorResolution.THE_800_P)
 monoLeft.setResolution(dai.MonoCameraProperties.SensorResolution.THE_400_P)
@@ -61,10 +54,6 @@ monoRight.setResolution(dai.MonoCameraProperties.SensorResolution.THE_800_P)
 monoRight.setResolution(dai.MonoCameraProperties.SensorResolution.THE_400_P)
 monoRight.setResolution(dai.MonoCameraProperties.SensorResolution.THE_800_P)
 monoRight.setBoardSocket(dai.CameraBoardSocket.RIGHT)
-
-
-
-
 
 # Create a node that will produce the depth map (using disparity output as it's easier to visualize depth this way)
 depth.setDefaultProfilePreset(dai.node.StereoDepth.PresetMode.HIGH_DENSITY)
@@ -86,11 +75,7 @@ q = queue.Queue()
 def newFrame(inFrame):
     global q
     num = inFrame.getInstanceNum()
-
     name = "color" if num ==0 else "depth"
-
-
-    name = "color" if num ==0 else "depth" 
 
     frame = inFrame.getCvFrame()
     q.put({"name":name, "frame":frame})
@@ -101,11 +86,7 @@ with dai.Device(pipeline, usb2Mode=True) as device:
 
     device.getOutputQueue(name="frames", maxSize=4, blocking=False).addCallback(newFrame)
 
-    dirName = "testdataimagaes"
-
-    device.getOutputQueue(name="frames", maxSize=4, blocking=False).addCallback(newFrame)    
-
-    dirName = "maybe_this_will_work"
+    dirName = "testdata"
 
     Path(dirName).mkdir(parents=True,exist_ok=True)
     i = 1
